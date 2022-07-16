@@ -1,6 +1,6 @@
 import ExpenseItem from "./ExpenseItem";
 
-function Expenses() {
+const Expenses = () => {
 	const data = [
 		{
 			title: "Car Insurance",
@@ -50,6 +50,6 @@ function Expenses() {
 			</div>
 		</div>
 	);
-}
+};
 
 export default Expenses;

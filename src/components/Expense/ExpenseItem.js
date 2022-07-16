@@ -1,6 +1,6 @@
 import ExpenseDate from "./ExpenseDate";
 
-function ExpenseItem(props) {
+const ExpenseItem = (props) => {
 	return (
 		<div className="col-12 g-0 row border border-info rounded p-3 my-1">
 			<div className="col-xxl-10 col-xl-10 col-lg-10 col-md-9 col-sm-8 col-8">
@@ -16,6 +16,6 @@ function ExpenseItem(props) {
 			</div>
 		</div>
 	);
-}
+};
 
 export default ExpenseItem;

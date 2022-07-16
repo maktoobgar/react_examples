@@ -1,8 +1,8 @@
 import Expenses from "./components/Expense/Expenses";
 import "./App.css";
 
-function App() {
+const App = () => {
 	return <Expenses />;
-}
+};
 
 export default App;
