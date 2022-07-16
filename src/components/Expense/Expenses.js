@@ -25,7 +25,7 @@ const Expenses = () => {
 	];
 
 	return (
-		<div class="p-0">
+		<div className="p-0">
 			<ExpenseItem
 				title={data[0].title}
 				date={data[0].date}

@@ -1,14 +1,51 @@
+import { useState } from "react";
+
 const NewExpenseForm = () => {
+	const [title, setTitle] = useState("");
+	const [cost, setCost] = useState("");
+	const [date, setDate] = useState("");
+
+	const titleChangeHandler = (event) => {
+		setTitle(event.target.value);
+	};
+	const costChangeHandler = (event) => {
+		setCost(event.target.value);
+	};
+	const dateChangeHandler = (event) => {
+		setDate(event.target.value);
+	};
+	const clearForm = () => {
+		setTitle("");
+		setCost("");
+		setDate("");
+	};
+	const submitHandler = (event) => {
+		event.preventDefault();
+
+		const data = {
+			title: title,
+			cost: cost,
+			date: new Date(date),
+		};
+
+		console.log(data);
+		clearForm();
+	};
+
 	return (
 		<div className="fs-5 border rounded border-info p-3 my-1">
-			<form>
+			<form onSubmit={submitHandler}>
 				<div className="mb-4">
 					<div className="row">
 						<div className="col-6">
-							<label for="title form-label">Title</label>
+							<label htmlFor="title" className="form-label">
+								Title
+							</label>
 						</div>
 						<div className="col-6">
-							<label for="cost form-label">Cost</label>
+							<label htmlFor="cost" className="form-label">
+								Cost
+							</label>
 						</div>
 
 						<div className="col-6">
@@ -17,6 +54,8 @@ const NewExpenseForm = () => {
 								type="text"
 								name="title"
 								id="title"
+								value={title}
+								onChange={titleChangeHandler}
 							/>
 						</div>
 						<div className="col-6">
@@ -27,6 +66,8 @@ const NewExpenseForm = () => {
 								id="cost"
 								min="0.01"
 								step="0.01"
+								value={cost}
+								onChange={costChangeHandler}
 							/>
 						</div>
 					</div>
@@ -35,7 +76,9 @@ const NewExpenseForm = () => {
 				<div className="m-0">
 					<div className="row">
 						<div className="col-12">
-							<label for="date form-label">Date</label>
+							<label htmlFor="date" className="form-label">
+								Date
+							</label>
 						</div>
 
 						<div className="col-6">
@@ -46,6 +89,8 @@ const NewExpenseForm = () => {
 								id="date"
 								min="2022-01-01"
 								max="2023-12-25"
+								value={date}
+								onChange={dateChangeHandler}
 							/>
 						</div>
 						<div className="col-6">
