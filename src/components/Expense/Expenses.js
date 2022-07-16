@@ -1,5 +1,5 @@
-import ExpenseItem from "./ExpenseItem";
 import ExpenseFilter from "./ExpenseFilter";
+import ExpenseList from "./ExpenseList";
 
 const Expenses = (props) => {
 	const changeItemsBasedOnYear = (year) => {
@@ -12,16 +12,7 @@ const Expenses = (props) => {
 				year={props.year}
 				changeItemsBasedOnYear={changeItemsBasedOnYear}
 			/>
-			{props.data.map((element) => {
-				return (
-					<ExpenseItem
-						key={element.id}
-						title={element.title}
-						date={element.date}
-						cost={element.cost}
-					/>
-				);
-			})}
+			<ExpenseList data={props.data} />
 		</div>
 	);
 };

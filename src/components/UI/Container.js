@@ -4,28 +4,26 @@ import NewExpenseForm from "../NewExpenseForm/NewExpenseForm";
 
 let expenses = [];
 
+const getList = (expenses, year) => {
+	return expenses.filter((element) => {
+		return element.date.getFullYear().toString() === year;
+	});
+};
+
 const Container = () => {
-	const [list, setList] = useState([]);
 	const [year, setYear] = useState("2022");
+	const [list, setList] = useState(getList(expenses, year));
 
 	const addNewExpense = (data) => {
 		data.id = Math.random();
 
 		expenses = [data, ...expenses];
-		setList(
-			expenses.filter((element) => {
-				return element.date.getFullYear().toString() === year;
-			})
-		);
+		setList(getList(expenses, year));
 	};
 
 	const updateYear = (data) => {
 		setYear(data);
-		setList(
-			expenses.filter((element) => {
-				return element.date.getFullYear().toString() === data;
-			})
-		);
+		setList(getList(expenses, data));
 	};
 
 	return (
