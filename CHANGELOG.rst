@@ -4,6 +4,7 @@ CHANGELOG
 UNRELEASED
 ----------
 
+* 🎉 feat: expenses component added
 * 🎉 feat: added expense_item component
 * 🎉 feat: added expense_items component
 
