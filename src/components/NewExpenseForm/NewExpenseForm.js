@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const NewExpenseForm = () => {
+const NewExpenseForm = (props) => {
 	const [title, setTitle] = useState("");
 	const [cost, setCost] = useState("");
 	const [date, setDate] = useState("");
@@ -28,7 +28,7 @@ const NewExpenseForm = () => {
 			date: new Date(date),
 		};
 
-		console.log(data);
+		props.addNewExpense(data);
 		clearForm();
 	};
 
@@ -87,8 +87,8 @@ const NewExpenseForm = () => {
 								type="date"
 								name="date"
 								id="date"
-								min="2022-01-01"
-								max="2023-12-25"
+								min={props.year + "-01-01"}
+								max={props.year + "-12-25"}
 								value={date}
 								onChange={dateChangeHandler}
 							/>

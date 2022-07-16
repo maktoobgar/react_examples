@@ -4,6 +4,7 @@ CHANGELOG
 UNRELEASED
 ----------
 
+* 🎉 feat: drop down list now works
 * 🎉 feat: gathering data and console logging
 * 🎉 feat: new_expense_form component added
 * 🎉 feat: hooks learning

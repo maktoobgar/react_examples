@@ -1,51 +1,27 @@
 import ExpenseItem from "./ExpenseItem";
+import ExpenseFilter from "./ExpenseFilter";
 
-const Expenses = () => {
-	const data = [
-		{
-			title: "Car Insurance",
-			date: new Date(),
-			cost: 452.32,
-		},
-		{
-			title: "Car Insurance",
-			date: new Date(),
-			cost: 452.32,
-		},
-		{
-			title: "Car Insurance",
-			date: new Date(),
-			cost: 452.32,
-		},
-		{
-			title: "Car Insurance",
-			date: new Date(),
-			cost: 452.32,
-		},
-	];
+const Expenses = (props) => {
+	const changeItemsBasedOnYear = (year) => {
+		props.updateYearOnUpperContainer(year);
+	};
 
 	return (
-		<div className="p-0">
-			<ExpenseItem
-				title={data[0].title}
-				date={data[0].date}
-				cost={data[0].cost}
+		<div className="p-2 border border-info rounded">
+			<ExpenseFilter
+				year={props.year}
+				changeItemsBasedOnYear={changeItemsBasedOnYear}
 			/>
-			<ExpenseItem
-				title={data[1].title}
-				date={data[1].date}
-				cost={data[1].cost}
-			/>
-			<ExpenseItem
-				title={data[2].title}
-				date={data[2].date}
-				cost={data[2].cost}
-			/>
-			<ExpenseItem
-				title={data[3].title}
-				date={data[3].date}
-				cost={data[3].cost}
-			/>
+			{props.data.map((element) => {
+				return (
+					<ExpenseItem
+						key={element.id}
+						title={element.title}
+						date={element.date}
+						cost={element.cost}
+					/>
+				);
+			})}
 		</div>
 	);
 };
