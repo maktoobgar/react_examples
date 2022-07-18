@@ -6,7 +6,7 @@ const Goals = (props) => {
 	};
 
 	let goals = <p className="fs-5 text-center">No data exists</p>;
-	if (props.goals.length != 0) {
+	if (props.goals.length !== 0) {
 		goals = props.goals.map((element) => {
 			return (
 				<Goal

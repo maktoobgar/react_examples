@@ -13,7 +13,7 @@ const GoalContainer = () => {
 	const deleteGoal = (goal) => {
 		setGoals(
 			goals.filter((element) => {
-				return element.id != goal.id;
+				return element.id !== goal.id;
 			})
 		);
 	};
