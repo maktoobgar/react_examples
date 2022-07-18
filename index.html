@@ -9,34 +9,101 @@
 			rel="stylesheet"
 			href="./node_modules/bootstrap/dist/css/bootstrap.css"
 		/>
+		<style>
+			ul {
+				list-style-type: none;
+			}
+		</style>
 	</head>
 	<body>
-		<div class="container vh-100">
-			<div class="row h-100 align-content-center">
-				<!-- Add Goal Section -->
-				<div class="row col-12 m-3 p-3 border rounded border-primary">
-					<label class="col-12 p-0 m-0 form-label" for="goal"
-						>Course Goal</label
-					>
-					<input
-						class="col-12 form-control mb-2"
-						type="text"
-						name="goal"
-						id="goal"
-					/>
-					<button class="col-12 btn btn-danger">Add Goal</button>
+		<div class="container min-vh-100 px-4">
+			<div class="row align-content-center min-vh-100">
+				<!-- Add User Section -->
+				<div class="my-3 p-3 border border-info rounded">
+					<div class="mb-2">
+						<label class="form-label" for="username">Username</label>
+						<input
+							class="form-control"
+							type="text"
+							name="username"
+							id="username"
+						/>
+					</div>
+					<div class="mb-2">
+						<label class="form-label" for="age">Age</label>
+						<input class="form-control" type="number" name="age" id="age" />
+					</div>
+					<div class="d-grid gap-2">
+						<button class="btn btn-info">Add User</button>
+					</div>
 				</div>
-				<!-- End Add Goal Section -->
+				<!-- End Of Add User Section -->
 
-				<!-- Goals -->
-				<div class="col-12 row g-2 m-3 p-3 border rounded border-primary">
-					<p class="fs-5 text-center">No data exists</p>
-					<!-- <button class="btn btn-info fs-5">one</button>
-					<button class="btn btn-info fs-5">two</button>
-					<button class="btn btn-info fs-5">three</button>
-					<button class="btn btn-info fs-5">four</button> -->
-				</div>
-				<!-- End Goals -->
+				<!-- Cards -->
+				<ul class="row g-0 my-3 p-3 border border-info rounded">
+					<p class="text-center fs-5 m-0">Items</p>
+					<!-- Card -->
+					<li class="col-xxl-2 col-xl-2 col-lg-3 col-md-3 col-sm-4">
+						<div class="card bg-info m-3">
+							<div class="card-header">Card Header</div>
+							<div class="card-body">
+								<div class="card-text">Card body text goes here</div>
+							</div>
+						</div>
+					</li>
+					<!-- End Of Card -->
+					<!-- Card -->
+					<li class="col-xxl-2 col-xl-2 col-lg-3 col-md-3 col-sm-4">
+						<div class="card bg-info m-3">
+							<div class="card-header">Card Header</div>
+							<div class="card-body">
+								<div class="card-text">Card body text goes here</div>
+							</div>
+						</div>
+					</li>
+					<!-- End Of Card -->
+					<!-- Card -->
+					<li class="col-xxl-2 col-xl-2 col-lg-3 col-md-3 col-sm-4">
+						<div class="card bg-info m-3">
+							<div class="card-header">Card Header</div>
+							<div class="card-body">
+								<div class="card-text">Card body text goes here</div>
+							</div>
+						</div>
+					</li>
+					<!-- End Of Card -->
+					<!-- Card -->
+					<li class="col-xxl-2 col-xl-2 col-lg-3 col-md-3 col-sm-4">
+						<div class="card bg-info m-3">
+							<div class="card-header">Card Header</div>
+							<div class="card-body">
+								<div class="card-text">Card body text goes here</div>
+							</div>
+						</div>
+					</li>
+					<!-- End Of Card -->
+					<!-- Card -->
+					<li class="col-xxl-2 col-xl-2 col-lg-3 col-md-3 col-sm-4">
+						<div class="card bg-info m-3">
+							<div class="card-header">Card Header</div>
+							<div class="card-body">
+								<div class="card-text">Card body text goes here</div>
+							</div>
+						</div>
+					</li>
+					<!-- End Of Card -->
+					<!-- Card -->
+					<li class="col-xxl-2 col-xl-2 col-lg-3 col-md-3 col-sm-4">
+						<div class="card bg-info m-3">
+							<div class="card-header">Card Header</div>
+							<div class="card-body">
+								<div class="card-text">Card body text goes here</div>
+							</div>
+						</div>
+					</li>
+					<!-- End Of Card -->
+				</ul>
+				<!-- End Of Cards -->
 			</div>
 		</div>
 		<script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.js"></script>

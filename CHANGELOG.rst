@@ -4,6 +4,7 @@ CHANGELOG
 UNRELEASED
 ----------
 
+* 🎉 feat: new application practice added
 * 🎉 feat: css files are now module
 * 🎉 feat: invalid state handling
 * 🎉 feat: new excercise added

@@ -1,0 +1,14 @@
+* {
+	--invalid-bg-color: #ff9c75;
+	--invalid-border-color: #fc4646;
+	--invalid-color: red;
+}
+
+.invalid input {
+	background-color: var(--invalid-bg-color);
+	border-color: var(--invalid-border-color);
+}
+
+.invalid label {
+	color: var(--invalid-color);
+}
