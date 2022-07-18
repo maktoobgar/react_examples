@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "./AddGoals.css";
+import styles from "./AddGoals.module.css";
 
 const AddGoal = (props) => {
 	const [goal, setGoal] = useState("");
@@ -27,7 +27,7 @@ const AddGoal = (props) => {
 		<div className="row col-12 m-3 p-3 border rounded border-primary">
 			<label
 				className={`col-12 p-0 m-0 form-label ${
-					!isGoalValid ? "invalid-label" : ""
+					!isGoalValid && styles["invalid-label"]
 				}`}
 				htmlFor="goal"
 			>
@@ -35,7 +35,7 @@ const AddGoal = (props) => {
 			</label>
 			<input
 				className={`col-12 form-control mb-2 ${
-					!isGoalValid ? "invalid-input" : ""
+					!isGoalValid && styles["invalid-input"]
 				}`}
 				type="text"
 				name="goal"

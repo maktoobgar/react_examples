@@ -6,7 +6,7 @@ const GoalContainer = () => {
 	const [goals, setGoals] = useState([]);
 
 	const addGoal = (goal) => {
-		goal["id"] = Math.random();
+		goal["id"] = Math.floor(Math.random() * 10000).toString();
 		setGoals([...goals, goal]);
 	};
 

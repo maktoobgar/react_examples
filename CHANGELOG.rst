@@ -4,6 +4,7 @@ CHANGELOG
 UNRELEASED
 ----------
 
+* 🎉 feat: css files are now module
 * 🎉 feat: invalid state handling
 * 🎉 feat: new excercise added
 * 🎉 feat: drop down list now works
