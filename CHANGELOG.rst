@@ -4,6 +4,7 @@ CHANGELOG
 UNRELEASED
 ----------
 
+* 🎉 feat: invalid state handling
 * 🎉 feat: new excercise added
 * 🎉 feat: drop down list now works
 * 🎉 feat: gathering data and console logging
