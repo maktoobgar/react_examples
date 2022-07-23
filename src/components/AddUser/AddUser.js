@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Error from "../UI/Error";
 import styles from "./AddUsers.module.css";
 
 const AddUser = (props) => {
@@ -6,6 +7,7 @@ const AddUser = (props) => {
 	const [age, setAge] = useState("");
 	const [isUsernameSafe, setIsUsernameSafe] = useState(true);
 	const [isAgeSafe, setIsAgeSafe] = useState(true);
+	const [error, setError] = useState(null);
 
 	const usernameChanedHandler = (event) => {
 		if (event.target.value.trim().length !== 0) {
@@ -25,10 +27,18 @@ const AddUser = (props) => {
 		let everythingIsFine = true;
 
 		if (isNaN(age) || age.length === 0) {
+			setError({
+				title: "Invalid Input",
+				body: ["Please enter a valid age and username. (non empty)"],
+			});
 			setIsAgeSafe(false);
 			everythingIsFine = false;
 		}
 		if (username.trim().length === 0) {
+			setError({
+				title: "Invalid Input",
+				body: ["Please enter a valid age and username. (non empty)"],
+			});
 			setIsUsernameSafe(false);
 			everythingIsFine = false;
 		}
@@ -44,38 +54,51 @@ const AddUser = (props) => {
 		props.addUser({ username: username, age: age });
 	};
 
+	const removeError = () => {
+		setError(null);
+	};
+
 	return (
-		<div className="my-3 p-3 border border-info rounded">
-			<div className={`mb-2 ${!isUsernameSafe && styles.invalid}`}>
-				<label className="form-label" htmlFor="username">
-					Username
-				</label>
-				<input
-					className="form-control"
-					type="text"
-					name="username"
-					id="username"
-					onChange={usernameChanedHandler}
-					value={username}
+		<div className="p-0">
+			{error && (
+				<Error
+					title={error.title}
+					body={error.body}
+					removeError={removeError}
 				/>
-			</div>
-			<div className={`mb-2 ${!isAgeSafe && styles.invalid}`}>
-				<label className="form-label" htmlFor="age">
-					Age
-				</label>
-				<input
-					className="form-control"
-					type="number"
-					name="age"
-					id="age"
-					onChange={ageChanedHandler}
-					value={age}
-				/>
-			</div>
-			<div className="d-grid gap-2">
-				<button className="btn btn-info" onClick={addUserClickedHandler}>
-					Add User
-				</button>
+			)}
+			<div className="my-3 p-3 border border-info rounded">
+				<div className={`mb-2 ${!isUsernameSafe && styles.invalid}`}>
+					<label className="form-label" htmlFor="username">
+						Username
+					</label>
+					<input
+						className="form-control"
+						type="text"
+						name="username"
+						id="username"
+						onChange={usernameChanedHandler}
+						value={username}
+					/>
+				</div>
+				<div className={`mb-2 ${!isAgeSafe && styles.invalid}`}>
+					<label className="form-label" htmlFor="age">
+						Age
+					</label>
+					<input
+						className="form-control"
+						type="string"
+						name="age"
+						id="age"
+						onChange={ageChanedHandler}
+						value={age}
+					/>
+				</div>
+				<div className="d-grid gap-2">
+					<button className="btn btn-info" onClick={addUserClickedHandler}>
+						Add User
+					</button>
+				</div>
 			</div>
 		</div>
 	);

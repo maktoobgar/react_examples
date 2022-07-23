@@ -13,11 +13,37 @@
 			ul {
 				list-style-type: none;
 			}
+			.fixed {
+				left: 0;
+				right: 0;
+				top: 0;
+				bottom: 0;
+				z-index: 10 !important;
+			}
 		</style>
 	</head>
 	<body>
 		<div class="container min-vh-100 px-4">
 			<div class="row align-content-center min-vh-100">
+				<!-- Error Section -->
+				<div class="position-fixed fixed vh-100 vw-100 bg-opacity-75 bg-dark">
+					<div class="container h-100 px-4">
+						<div class="row align-content-center h-100">
+							<div class="my-3 p-3 border border-info rounded bg-body">
+								<header>
+									<h2>Title Goes Here</h2>
+								</header>
+								<div class="pt-3">
+									<p>Information goes here</p>
+								</div>
+								<footer>
+									<button class="btn btn-info">Okay</button>
+								</footer>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- End Of Error Section -->
 				<!-- Add User Section -->
 				<div class="my-3 p-3 border border-info rounded">
 					<div class="mb-2">
