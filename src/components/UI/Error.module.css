@@ -3,5 +3,24 @@
 	right: 0;
 	top: 0;
 	bottom: 0;
+}
+
+.zero-z-index {
+	z-index: 0 !important;
+}
+
+.medium-z-index {
+	z-index: 5 !important;
+}
+
+.high-z-index {
 	z-index: 10 !important;
+}
+
+.higher-z-index {
+	z-index: 15 !important;
+}
+
+.highest-z-index {
+	z-index: 15 !important;
 }

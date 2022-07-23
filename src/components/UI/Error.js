@@ -3,12 +3,17 @@ import styles from "./Error.module.css";
 const Error = (props) => {
 	return (
 		<div
-			className={`position-fixed vh-100 vw-100 bg-opacity-75 bg-dark ${styles.fixed}`}
-			onClick={props.removeError}
+			className={`position-fixed vh-100 vw-100 ${styles.fixed} ${styles["medium-z-index"]}`}
 		>
+			<div
+				className={`position-fixed h-100 w-100 bg-opacity-75 bg-dark ${styles.fixed} ${styles["high-z-index"]}`}
+				onClick={props.removeError}
+			></div>
 			<div className="container h-100 px-4">
 				<div className="row align-content-center h-100">
-					<div className="my-3 p-3 border border-info rounded bg-body">
+					<div
+						className={`my-3 p-3 border border-info rounded bg-body ${styles["higher-z-index"]}`}
+					>
 						<header>
 							<h2>{props.title}</h2>
 						</header>

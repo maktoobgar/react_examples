@@ -4,6 +4,7 @@ CHANGELOG
 UNRELEASED
 ----------
 
+* 🐛 fix: background is separated so we just take off that pop up by clicking just the background not all elements on page
 * 🎉 feat: adding error module to the page
 * 🎉 feat: new application practice added
 * 🎉 feat: css files are now module
