@@ -1,31 +1,22 @@
-import { useState } from "react";
+import { useRef } from "react";
 
 const NewExpenseForm = (props) => {
-	const [title, setTitle] = useState("");
-	const [cost, setCost] = useState("");
-	const [date, setDate] = useState("");
+	const titleRef = useRef();
+	const costRef = useRef();
+	const dateRef = useRef();
 
-	const titleChangeHandler = (event) => {
-		setTitle(event.target.value);
-	};
-	const costChangeHandler = (event) => {
-		setCost(event.target.value);
-	};
-	const dateChangeHandler = (event) => {
-		setDate(event.target.value);
-	};
 	const clearForm = () => {
-		setTitle("");
-		setCost("");
-		setDate("");
+		titleRef.current.value = "";
+		costRef.current.value = "";
+		dateRef.current.value = "";
 	};
 	const submitHandler = (event) => {
 		event.preventDefault();
 
 		const data = {
-			title: title,
-			cost: cost,
-			date: new Date(date),
+			title: titleRef.current.value,
+			cost: costRef.current.value,
+			date: new Date(dateRef.current.value),
 		};
 
 		props.addNewExpense(data);
@@ -54,8 +45,7 @@ const NewExpenseForm = (props) => {
 								type="text"
 								name="title"
 								id="title"
-								value={title}
-								onChange={titleChangeHandler}
+								ref={titleRef}
 							/>
 						</div>
 						<div className="col-6">
@@ -66,8 +56,7 @@ const NewExpenseForm = (props) => {
 								id="cost"
 								min="0.01"
 								step="0.01"
-								value={cost}
-								onChange={costChangeHandler}
+								ref={costRef}
 							/>
 						</div>
 					</div>
@@ -89,8 +78,7 @@ const NewExpenseForm = (props) => {
 								id="date"
 								min={props.year + "-01-01"}
 								max={props.year + "-12-25"}
-								value={date}
-								onChange={dateChangeHandler}
+								ref={dateRef}
 							/>
 						</div>
 						<div className="col-6">

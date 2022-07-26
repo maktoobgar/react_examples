@@ -7,8 +7,8 @@ const App = () => {
 	// eslint-disable-next-line
 	return <UserContainer />;
 	// eslint-disable-next-line
-	return <GoalContainer />;
 	return <Container />;
+	return <GoalContainer />;
 };
 
 export default App;

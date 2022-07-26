@@ -1,26 +1,25 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import styles from "./AddGoals.module.css";
 
 const AddGoal = (props) => {
-	const [goal, setGoal] = useState("");
+	const goalRef = useRef();
 	const [isGoalValid, setIsGoalValid] = useState(true);
 
 	const goalChangedHandler = (event) => {
-		if (event.target.value.trim().length !== 0) {
+		if (!isGoalValid && event.target.value.trim().length !== 0) {
 			setIsGoalValid(true);
 		}
-
-		setGoal(event.target.value.trim());
 	};
 
 	const addGoalClickHandler = () => {
-		if (goal.trim().length === 0) {
+		if (goalRef.current.value.trim().length === 0) {
 			setIsGoalValid(false);
 			return;
 		}
 
-		props.addGoal({ goal: goal.trim() });
-		setGoal("");
+		props.addGoal({ goal: goalRef.current.value.trim() });
+
+		goalRef.current.value = "";
 	};
 
 	return (
@@ -40,7 +39,7 @@ const AddGoal = (props) => {
 				type="text"
 				name="goal"
 				id="goal"
-				value={goal}
+				ref={goalRef}
 				onChange={goalChangedHandler}
 			/>
 			<button className="col-12 btn btn-danger" onClick={addGoalClickHandler}>

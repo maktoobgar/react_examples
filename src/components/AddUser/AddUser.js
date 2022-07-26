@@ -1,32 +1,31 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Error from "../UI/Error";
 import styles from "./AddUsers.module.css";
 
 const AddUser = (props) => {
-	const [username, setUsername] = useState("");
-	const [age, setAge] = useState("");
+	const usernameRef = useRef();
+	const ageRef = useRef();
 	const [isUsernameSafe, setIsUsernameSafe] = useState(true);
 	const [isAgeSafe, setIsAgeSafe] = useState(true);
 	const [error, setError] = useState(null);
 
-	const usernameChanedHandler = (event) => {
-		if (event.target.value.trim().length !== 0) {
+	const usernameChangedHandler = (event) => {
+		if (!isUsernameSafe && event.target.value.trim().length !== 0) {
+			console.log(event.target.value.trim().length);
 			setIsUsernameSafe(true);
 		}
-		setUsername(event.target.value.trim());
 	};
 
-	const ageChanedHandler = (event) => {
-		if (!isNaN(event.target.value.trim())) {
+	const ageChangedHandler = (event) => {
+		if (!isAgeSafe && !isNaN(event.target.value.trim())) {
 			setIsAgeSafe(true);
 		}
-		setAge(event.target.value.trim());
 	};
 
 	const isItAllSafe = () => {
 		let everythingIsFine = true;
 
-		if (isNaN(age) || age.length === 0) {
+		if (isNaN(ageRef.current.value) || ageRef.current.value.length === 0) {
 			setError({
 				title: "Invalid Input",
 				body: ["Please enter a valid age and username. (non empty)"],
@@ -34,7 +33,7 @@ const AddUser = (props) => {
 			setIsAgeSafe(false);
 			everythingIsFine = false;
 		}
-		if (username.trim().length === 0) {
+		if (usernameRef.current.value.trim().length === 0) {
 			setError({
 				title: "Invalid Input",
 				body: ["Please enter a valid age and username. (non empty)"],
@@ -51,7 +50,15 @@ const AddUser = (props) => {
 			return;
 		}
 
-		props.addUser({ username: username, age: age });
+		props.addUser({
+			username: usernameRef.current.value,
+			age: ageRef.current.value,
+		});
+
+		removeError();
+
+		usernameRef.current.value = "";
+		ageRef.current.value = "";
 	};
 
 	const removeError = () => {
@@ -77,8 +84,8 @@ const AddUser = (props) => {
 						type="text"
 						name="username"
 						id="username"
-						onChange={usernameChanedHandler}
-						value={username}
+						ref={usernameRef}
+						onChange={usernameChangedHandler}
 					/>
 				</div>
 				<div className={`mb-2 ${!isAgeSafe && styles.invalid}`}>
@@ -90,8 +97,8 @@ const AddUser = (props) => {
 						type="string"
 						name="age"
 						id="age"
-						onChange={ageChanedHandler}
-						value={age}
+						ref={ageRef}
+						onChange={ageChangedHandler}
 					/>
 				</div>
 				<div className="d-grid gap-2">
