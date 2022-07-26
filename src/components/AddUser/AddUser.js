@@ -59,7 +59,7 @@ const AddUser = (props) => {
 	};
 
 	return (
-		<div className="p-0">
+		<>
 			{error && (
 				<Error
 					title={error.title}
@@ -100,7 +100,7 @@ const AddUser = (props) => {
 					</button>
 				</div>
 			</div>
-		</div>
+		</>
 	);
 };
 
