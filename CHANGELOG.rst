@@ -4,6 +4,7 @@ CHANGELOG
 UNRELEASED
 ----------
 
+* 🎉 feat: adding useContext and createContext to handle states of staying logged in
 * 🎉 feat: added useReducer
 * 🎉 feat: using cleanup of useEffect
 * 🎉 feat: useEffect added

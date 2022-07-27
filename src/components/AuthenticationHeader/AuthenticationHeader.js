@@ -1,31 +1,23 @@
-import ReactDom from "react-dom";
+import { useContext } from "react";
+import { createPortal } from "react-dom";
+import AuthenticationContext from "../../context/authentication_context";
 
-const AuthenticationHeaderContent = (props) => {
-	return (
+const AuthenticationHeader = (props) => {
+	const ctx = useContext(AuthenticationContext);
+
+	return createPortal(
 		<div className="flex header">
 			<div className="header-title">Just a typical website</div>
-			{props.isLoggedIn && (
+			{ctx.isLoggedIn && (
 				<ul className="flex">
 					<li className="button margin-x-1">Users</li>
 					<li className="button margin-x-1">Admin</li>
-					<li
-						className="button button-danger margin-x-1"
-						onClick={props.logout}
-					>
+					<li className="button button-danger margin-x-1" onClick={ctx.logout}>
 						Logout
 					</li>
 				</ul>
 			)}
-		</div>
-	);
-};
-
-const AuthenticationHeader = (props) => {
-	return ReactDom.createPortal(
-		<AuthenticationHeaderContent
-			isLoggedIn={props.isLoggedIn}
-			logout={props.logout}
-		/>,
+		</div>,
 		document.getElementById("header")
 	);
 };

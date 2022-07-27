@@ -1,5 +1,5 @@
-import { useReducer, useState } from "react";
-import AuthenticationHeader from "../AuthenticationHeader/AuthenticationHeader";
+import { useContext, useReducer } from "react";
+import AuthenticationContext from "../../context/authentication_context";
 import styles from "./AuthenticationForm.module.css";
 
 const ActionType = {
@@ -47,7 +47,9 @@ const passwordReducer = (prevState, action) => {
 	}
 };
 
-const AuthenticationForm = () => {
+const AuthenticationForm = (props) => {
+	const ctx = useContext(AuthenticationContext);
+
 	const [emailState, setEmailState] = useReducer(emailReducer, {
 		value: "",
 		isValid: true,
@@ -57,23 +59,13 @@ const AuthenticationForm = () => {
 		isValid: true,
 	});
 
-	const [isLoggedIn, setIsLoggedIn] = useState(
-		sessionStorage.getItem("isLoggedIn") === "1"
-	);
-
 	const submitClickedHandler = (event) => {
 		event.preventDefault();
 
-		setIsLoggedIn(true);
-		sessionStorage.setItem("isLoggedIn", "1");
+		ctx.login();
 
 		setEmailState({ type: ActionType.MAKE_EMPTY });
 		setPasswordState({ type: ActionType.MAKE_EMPTY });
-	};
-
-	const logout = () => {
-		setIsLoggedIn(false);
-		sessionStorage.setItem("isLoggedIn", "0");
 	};
 
 	const isFormValid = () => {
@@ -86,74 +78,68 @@ const AuthenticationForm = () => {
 	};
 
 	return (
-		<>
-			<AuthenticationHeader isLoggedIn={isLoggedIn} logout={logout} />
-			<div className="box margin-y-1">
-				<form className="p-5" onSubmit={submitClickedHandler}>
-					{!isLoggedIn && (
-						<>
-							<div className="flex pb-3">
-								<label className="font-medium form-label w-25" htmlFor="email">
-									Email
-								</label>
-								<input
-									className={`font-medium form-control w-75 ${
-										!emailState.isValid && styles.error
-									}`}
-									type="text"
-									id="email"
-									value={emailState.value}
-									onChange={(event) => {
-										setEmailState({
-											type: ActionType.USER_INPUT,
-											value: event.target.value,
-										});
-									}}
-									onBlur={() => {
-										setEmailState({ type: ActionType.LOST_FOCUS });
-									}}
-								/>
-							</div>
-							<div className="flex pb-3">
-								<label
-									className="font-medium form-label w-25"
-									htmlFor="password"
-								>
-									Password
-								</label>
-								<input
-									className={`font-medium form-control w-75 ${
-										!passwordState.isValid && styles.error
-									}`}
-									type="password"
-									id="password"
-									value={passwordState.value}
-									onChange={(event) => {
-										setPasswordState({
-											type: ActionType.USER_INPUT,
-											value: event.target.value,
-										});
-									}}
-									onBlur={() => {
-										setPasswordState({ type: ActionType.LOST_FOCUS });
-									}}
-								/>
-							</div>
-							<div className="flex justify-content-center">
-								<button className="button px-5" disabled={!isFormValid()}>
-									Submit
-								</button>
-							</div>
-						</>
-					)}
-					{isLoggedIn && (
-						<h2 className="text-center" type="submit">
-							Welcome Back
-						</h2>
-					)}
-				</form>
-			</div>
-		</>
+		<div className="box margin-y-1">
+			<form className="p-5" onSubmit={submitClickedHandler}>
+				{!ctx.isLoggedIn && (
+					<>
+						<div className="flex pb-3">
+							<label className="font-medium form-label w-25" htmlFor="email">
+								Email
+							</label>
+							<input
+								className={`font-medium form-control w-75 ${
+									!emailState.isValid && styles.error
+								}`}
+								type="text"
+								id="email"
+								value={emailState.value}
+								onChange={(event) => {
+									setEmailState({
+										type: ActionType.USER_INPUT,
+										value: event.target.value,
+									});
+								}}
+								onBlur={() => {
+									setEmailState({ type: ActionType.LOST_FOCUS });
+								}}
+							/>
+						</div>
+						<div className="flex pb-3">
+							<label className="font-medium form-label w-25" htmlFor="password">
+								Password
+							</label>
+							<input
+								className={`font-medium form-control w-75 ${
+									!passwordState.isValid && styles.error
+								}`}
+								type="password"
+								id="password"
+								value={passwordState.value}
+								onChange={(event) => {
+									setPasswordState({
+										type: ActionType.USER_INPUT,
+										value: event.target.value,
+									});
+								}}
+								onBlur={() => {
+									setPasswordState({ type: ActionType.LOST_FOCUS });
+								}}
+							/>
+						</div>
+						<div className="flex justify-content-center">
+							<button className="button px-5" disabled={!isFormValid()}>
+								Submit
+							</button>
+						</div>
+					</>
+				)}
+				{ctx.isLoggedIn && (
+					<h2 className="text-center" type="submit">
+						Welcome Back
+					</h2>
+				)}
+			</form>
+		</div>
 	);
 };
 
