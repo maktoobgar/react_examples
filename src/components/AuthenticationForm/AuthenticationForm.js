@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react";
 import AuthenticationHeader from "../AuthenticationHeader/AuthenticationHeader";
+import styles from "./AuthenticationForm.module.css";
 
 const AuthenticationForm = () => {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
-	const [formIsValid, setFormIsValid] = useState(false);
+	const [isFormValid, setIsFormValid] = useState(false);
+	const [isEmailValid, setIsEmailValid] = useState(true);
+	const [isPasswordValid, setIsPasswordValid] = useState(true);
 
 	const emailChangedHandler = (event) => {
 		setEmail(event.target.value);
@@ -19,17 +22,48 @@ const AuthenticationForm = () => {
 	);
 
 	const validateForm = () => {
-		console.log(email);
-		if (email.includes("@") && password.length > 6 && !formIsValid) {
-			setFormIsValid(true);
-		} else if (formIsValid) {
-			setFormIsValid(false);
+		if (email.includes("@") && password.length > 6 && !isFormValid) {
+			setIsFormValid(true);
+		} else if (!email.includes("@") && !(password.length > 6) && isFormValid) {
+			setIsFormValid(false);
+		}
+
+		if (email.length !== 0 && !email.includes("@") && isEmailValid) {
+			setIsEmailValid(false);
+		} else if (email.length !== 0 && email.includes("@") && !isEmailValid) {
+			setIsEmailValid(true);
+		}
+
+		if (password.length !== 0 && !(password.length > 6) && isPasswordValid) {
+			setIsPasswordValid(false);
+		} else if (
+			password.length !== 0 &&
+			password.length > 6 &&
+			!isPasswordValid
+		) {
+			setIsPasswordValid(true);
 		}
 	};
 
 	useEffect(() => {
-		validateForm();
+		const handler = setTimeout(() => {
+			validateForm();
+		}, 500);
+
+		return () => {
+			clearTimeout(handler);
+		};
 	}, [email, password]);
+
+	useEffect(() => {
+		const handler = setTimeout(() => {
+			validateForm();
+		}, 500);
+
+		return () => {
+			clearTimeout(handler);
+		};
+	}, [email]);
 
 	const submitClickedHandler = (event) => {
 		event.preventDefault();
@@ -57,7 +91,9 @@ const AuthenticationForm = () => {
 									Email
 								</label>
 								<input
-									className="font-medium form-control w-75"
+									className={`font-medium form-control w-75 ${
+										!isEmailValid && !isFormValid && styles.error
+									}`}
 									type="text"
 									id="email"
 									value={email}
@@ -72,7 +108,9 @@ const AuthenticationForm = () => {
 									Password
 								</label>
 								<input
-									className="font-medium form-control w-75"
+									className={`font-medium form-control w-75 ${
+										!isPasswordValid && !isFormValid && styles.error
+									}`}
 									type="password"
 									id="password"
 									value={password}
@@ -80,7 +118,7 @@ const AuthenticationForm = () => {
 								/>
 							</div>
 							<div className="flex justify-content-center">
-								<button className="button px-5" disabled={!formIsValid}>
+								<button className="button px-5" disabled={!isFormValid}>
 									Submit
 								</button>
 							</div>

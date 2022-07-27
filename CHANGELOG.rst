@@ -4,6 +4,7 @@ CHANGELOG
 UNRELEASED
 ----------
 
+* 🎉 feat: using cleanup of useEffect
 * 🎉 feat: useEffect added
 * 🎉 feat: added authentication form
 * 🎉 feat: portal and fragment added

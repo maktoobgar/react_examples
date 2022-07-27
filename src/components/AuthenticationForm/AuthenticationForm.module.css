@@ -1,0 +1,9 @@
+.error {
+	background-color: rgb(255, 168, 168);
+	border-color: rgb(253, 135, 135);
+}
+
+.error:focus {
+	background-color: rgb(255, 168, 168);
+	border-color: rgb(253, 135, 135);
+}
