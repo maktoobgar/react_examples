@@ -1,82 +1,88 @@
-import { useEffect, useState } from "react";
+import { useReducer, useState } from "react";
 import AuthenticationHeader from "../AuthenticationHeader/AuthenticationHeader";
 import styles from "./AuthenticationForm.module.css";
 
+const ActionType = {
+	USER_INPUT: 0,
+	LOST_FOCUS: 1,
+	MAKE_EMPTY: 2,
+};
+Object.freeze(ActionType);
+
+const emailReducer = (prevState, action) => {
+	if (action.type === ActionType.USER_INPUT) {
+		return {
+			value: action.value,
+			isValid: action.value.includes("@"),
+		};
+	} else if (action.type === ActionType.LOST_FOCUS) {
+		return {
+			value: prevState.value,
+			isValid: prevState.value.includes("@"),
+		};
+	} else if (action.type === ActionType.MAKE_EMPTY) {
+		return {
+			value: "",
+			isValid: true,
+		};
+	}
+};
+
+const passwordReducer = (prevState, action) => {
+	if (action.type === ActionType.USER_INPUT) {
+		return {
+			value: action.value,
+			isValid: action.value.length > 6,
+		};
+	} else if (action.type === ActionType.LOST_FOCUS) {
+		return {
+			value: prevState.value,
+			isValid: prevState.value.length > 6,
+		};
+	} else if (action.type === ActionType.MAKE_EMPTY) {
+		return {
+			value: "",
+			isValid: true,
+		};
+	}
+};
+
 const AuthenticationForm = () => {
-	const [email, setEmail] = useState("");
-	const [password, setPassword] = useState("");
-	const [isFormValid, setIsFormValid] = useState(false);
-	const [isEmailValid, setIsEmailValid] = useState(true);
-	const [isPasswordValid, setIsPasswordValid] = useState(true);
-
-	const emailChangedHandler = (event) => {
-		setEmail(event.target.value);
-	};
-
-	const passwordChangedHandler = (event) => {
-		setPassword(event.target.value);
-	};
+	const [emailState, setEmailState] = useReducer(emailReducer, {
+		value: "",
+		isValid: true,
+	});
+	const [passwordState, setPasswordState] = useReducer(passwordReducer, {
+		value: "",
+		isValid: true,
+	});
 
 	const [isLoggedIn, setIsLoggedIn] = useState(
 		sessionStorage.getItem("isLoggedIn") === "1"
 	);
-
-	const validateForm = () => {
-		if (email.includes("@") && password.length > 6 && !isFormValid) {
-			setIsFormValid(true);
-		} else if (!email.includes("@") && !(password.length > 6) && isFormValid) {
-			setIsFormValid(false);
-		}
-
-		if (email.length !== 0 && !email.includes("@") && isEmailValid) {
-			setIsEmailValid(false);
-		} else if (email.length !== 0 && email.includes("@") && !isEmailValid) {
-			setIsEmailValid(true);
-		}
-
-		if (password.length !== 0 && !(password.length > 6) && isPasswordValid) {
-			setIsPasswordValid(false);
-		} else if (
-			password.length !== 0 &&
-			password.length > 6 &&
-			!isPasswordValid
-		) {
-			setIsPasswordValid(true);
-		}
-	};
-
-	useEffect(() => {
-		const handler = setTimeout(() => {
-			validateForm();
-		}, 500);
-
-		return () => {
-			clearTimeout(handler);
-		};
-	}, [email, password]);
-
-	useEffect(() => {
-		const handler = setTimeout(() => {
-			validateForm();
-		}, 500);
-
-		return () => {
-			clearTimeout(handler);
-		};
-	}, [email]);
 
 	const submitClickedHandler = (event) => {
 		event.preventDefault();
 
 		setIsLoggedIn(true);
 		sessionStorage.setItem("isLoggedIn", "1");
-		setEmail("");
-		setPassword("");
+
+		setEmailState({ type: ActionType.MAKE_EMPTY });
+		setPasswordState({ type: ActionType.MAKE_EMPTY });
 	};
 
 	const logout = () => {
 		setIsLoggedIn(false);
 		sessionStorage.setItem("isLoggedIn", "0");
+	};
+
+	const isFormValid = () => {
+		return (
+			emailState.isValid &&
+			passwordState.isValid &&
+			emailState.value.length > 0 &&
+			passwordState.value.length > 0
+		);
 	};
 
 	return (
@@ -92,12 +98,20 @@ const AuthenticationForm = () => {
 								</label>
 								<input
 									className={`font-medium form-control w-75 ${
-										!isEmailValid && !isFormValid && styles.error
+										!emailState.isValid && styles.error
 									}`}
 									type="text"
 									id="email"
-									value={email}
-									onChange={emailChangedHandler}
+									value={emailState.value}
+									onChange={(event) => {
+										setEmailState({
+											type: ActionType.USER_INPUT,
+											value: event.target.value,
+										});
+									}}
+									onBlur={() => {
+										setEmailState({ type: ActionType.LOST_FOCUS });
+									}}
 								/>
 							</div>
 							<div className="flex pb-3">
@@ -109,16 +123,24 @@ const AuthenticationForm = () => {
 								</label>
 								<input
 									className={`font-medium form-control w-75 ${
-										!isPasswordValid && !isFormValid && styles.error
+										!passwordState.isValid && styles.error
 									}`}
 									type="password"
 									id="password"
-									value={password}
-									onChange={passwordChangedHandler}
+									value={passwordState.value}
+									onChange={(event) => {
+										setPasswordState({
+											type: ActionType.USER_INPUT,
+											value: event.target.value,
+										});
+									}}
+									onBlur={() => {
+										setPasswordState({ type: ActionType.LOST_FOCUS });
+									}}
 								/>
 							</div>
 							<div className="flex justify-content-center">
-								<button className="button px-5" disabled={!isFormValid}>
+								<button className="button px-5" disabled={!isFormValid()}>
 									Submit
 								</button>
 							</div>

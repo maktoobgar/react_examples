@@ -4,6 +4,7 @@ CHANGELOG
 UNRELEASED
 ----------
 
+* 🎉 feat: added useReducer
 * 🎉 feat: using cleanup of useEffect
 * 🎉 feat: useEffect added
 * 🎉 feat: added authentication form
