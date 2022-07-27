@@ -21,15 +21,6 @@ const AuthenticationHeaderContent = (props) => {
 };
 
 const AuthenticationHeader = (props) => {
-	console.log(
-		ReactDom.createPortal(
-			<AuthenticationHeaderContent
-				isLoggedIn={props.isLoggedIn}
-				logout={props.logout}
-			/>,
-			document.getElementById("header")
-		)
-	);
 	return ReactDom.createPortal(
 		<AuthenticationHeaderContent
 			isLoggedIn={props.isLoggedIn}

@@ -4,6 +4,7 @@ CHANGELOG
 UNRELEASED
 ----------
 
+* 🎉 feat: useEffect added
 * 🎉 feat: added authentication form
 * 🎉 feat: portal and fragment added
 * 🐛 fix: background is separated so we just take off that pop up by clicking just the background not all elements on page

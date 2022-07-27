@@ -1,22 +1,48 @@
-import { useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import AuthenticationHeader from "../AuthenticationHeader/AuthenticationHeader";
 
 const AuthenticationForm = () => {
-	const emailRef = useRef();
-	const passwordRef = useRef();
+	const [email, setEmail] = useState("");
+	const [password, setPassword] = useState("");
+	const [formIsValid, setFormIsValid] = useState(false);
 
-	const [isLoggedIn, setIsLoggedIn] = useState(false);
+	const emailChangedHandler = (event) => {
+		setEmail(event.target.value);
+	};
+
+	const passwordChangedHandler = (event) => {
+		setPassword(event.target.value);
+	};
+
+	const [isLoggedIn, setIsLoggedIn] = useState(
+		sessionStorage.getItem("isLoggedIn") === "1"
+	);
+
+	const validateForm = () => {
+		console.log(email);
+		if (email.includes("@") && password.length > 6 && !formIsValid) {
+			setFormIsValid(true);
+		} else if (formIsValid) {
+			setFormIsValid(false);
+		}
+	};
+
+	useEffect(() => {
+		validateForm();
+	}, [email, password]);
 
 	const submitClickedHandler = (event) => {
 		event.preventDefault();
 
 		setIsLoggedIn(true);
-		emailRef.current.value = "";
-		passwordRef.current.value = "";
+		sessionStorage.setItem("isLoggedIn", "1");
+		setEmail("");
+		setPassword("");
 	};
 
 	const logout = () => {
 		setIsLoggedIn(false);
+		sessionStorage.setItem("isLoggedIn", "0");
 	};
 
 	return (
@@ -34,7 +60,8 @@ const AuthenticationForm = () => {
 									className="font-medium form-control w-75"
 									type="text"
 									id="email"
-									ref={emailRef}
+									value={email}
+									onChange={emailChangedHandler}
 								/>
 							</div>
 							<div className="flex pb-3">
@@ -48,11 +75,14 @@ const AuthenticationForm = () => {
 									className="font-medium form-control w-75"
 									type="password"
 									id="password"
-									ref={passwordRef}
+									value={password}
+									onChange={passwordChangedHandler}
 								/>
 							</div>
 							<div className="flex justify-content-center">
-								<button className="button px-5">Submit</button>
+								<button className="button px-5" disabled={!formIsValid}>
+									Submit
+								</button>
 							</div>
 						</>
 					)}
