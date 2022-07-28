@@ -1,4 +1,8 @@
-# Getting Started with Create React App
+# About this repository
+
+I just created a react practice project for myself just to learn how to code an application in react.
+
+# Getting Started
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
